@@ -1,6 +1,10 @@
 # Docker-Compose-Springboot-Mysql
 Docker-Compose-Spring-boot-Mysql    <br/> How multiple container connects (1- Spring-boot App Conatiner, 2- MySQL Conatiner)
 
+# Docker-Compose Stateful-Volumes
+Statefull Container : Data will be available permanently even after container deletion. DB data will be restored. (Note: Docker containers are stateless by default.)
+
+
 # Docker-Compose-Springboot-Mysql
 Architecture
 ![image](https://github.com/user-attachments/assets/59bcf809-f985-4ebe-98bd-5b456289dbc9)
@@ -13,14 +17,16 @@ MySQL DB Container – Database will run on database container.
 * Application container is dependent on DB container.
 * DB container Data store in volume.
 For communicating between both containers, both containers should be in same network.
+Once we execute above docker-compose yml it will create containers and it will map MySQl DB container data to .app directory.
+We can check container data in .app directory
 
 
 # Docker-Compose-Springboot-Mysql
   
-Build the project using maven
+Check container data in .app directory (DB is mounted to .app folder)
 
 ```bash
-$ mvn clean package
+$ ls -la  .app  
 ```
 
 Build the image using the following command
