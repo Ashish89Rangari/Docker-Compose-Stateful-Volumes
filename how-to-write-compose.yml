@@ -35,6 +35,6 @@ services:         # How many conatiner to manage here 2 conatiner (application a
       - MYSQL_ROOT_PASSWORD=root      # DB password
       - MYSQL_DATABASE=sbms           # DB name not username (username is root default for mysql)
     volumes:                         # Volume to store DB data
-      - /data/mysql                  # Storage path
+      - .app:/var/lib/mysql          # Here Database is mounted to .app folder so DB will not get deleted (Storage path)
 networks:
   springboot-db-net:           # network name common  for 2 conatiner 
