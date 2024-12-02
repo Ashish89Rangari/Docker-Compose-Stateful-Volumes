@@ -1,0 +1,40 @@
+# How to write Docker compose yaml file
+
+###~~~docker-compose.yml file contains below 4 sections.
+
+## version : It represents compose yml version.
+
+## services : It represents containers info (image-name, port-mapping).
+
+## networks : It represents network to run our containers.
+
+## volumes : Represents containers storage location.
+
+# Below docker compose file wil create 2 conatiners
+
+
+version: "3"      # compose yml version
+services:         # How many conatiner to manage here 2 conatiner (application and mysqldb)
+  application:                     # First Container Application (port exposed)
+    image: spring-boot-mysql-app    # Base image name 
+    ports:
+      - "8080:8080"                 # Application port 8080 port mapping to Host machine
+    networks:
+      - springboot-db-net          # Network name Same network should use both container to communicate
+    depends_on:                   # As application is created first so it depends on DB conatiner
+      - mysqldb                    # Name of 2nd conatiner
+    volumes:                      # For application storage volume
+      - /data/springboot-app
+  mysqldb:                        # Second Container DB (port not exposed because DB port should not be exposed)
+    image: mysql:8.0             # Base image name 
+    networks:
+      - springboot-db-net        # Network name Same network should use both container to communicate
+    ports:
+     - "3306:3306"
+    environment:                       # Environment Set for DB such as username ,password
+      - MYSQL_ROOT_PASSWORD=root      # DB password
+      - MYSQL_DATABASE=sbms           # DB name not username (username is root default for mysql)
+    volumes:                         # Volume to store DB data
+      - /data/mysql                  # Storage path
+networks:
+  springboot-db-net:           # network name common  for 2 conatiner 
