@@ -20,6 +20,6 @@ services:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=sbms
     volumes:
-      - /data/mysql
+      - .app:/var/lib/mysql
 networks:
   springboot-db-net:
